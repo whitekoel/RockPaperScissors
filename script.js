@@ -1,50 +1,57 @@
-let choice = ["rock", "paper", "scrissors"];
-let win, lose;
+let choice = ["Rock", "Paper", "Scissors"];
+let win=0;
+let lose=0;
+
+const buttons = document.querySelectorAll('button');
+const dashboard = document.querySelector('span#dashboard');
+buttons.forEach((button) => {
+    button.addEventListener('click', () =>{
+        playRound(button.innerText, computerplay());
+    })
+});
+
 function computerplay(){
     return choice[Math.floor(Math.random()*3)];
 }
 
-function playerPlay(){
-    let playerSelection = prompt("Select rock ,paper or scrissors.").toLowerCase();
-    return playerSelection;
+function findWinner(){
+    if(win==5){
+        dashboard.innerText = `You have 5 point,
+        You win.`;
+        win=lose=0;
+    }else if(lose==5){
+        dashboard.innerText = `Computer have 5 point,
+        You lose.`;
+        win=lose=0;
+    }
+    
 }
 
 function playRound(playerSelection, computerSelection){
-    if(playerSelection == "rock"||playerSelection == "paper"||playerSelection == "scrissors"){
-        console.log("You choose "+playerSelection+".");
+    if(playerSelection == "Rock"||playerSelection == "Paper"||playerSelection == "Scissors"){
         let result = playerSelection[0]+computerSelection[0];
         switch (result){
-            case 'rs':
-            case 'sp':
-            case 'pr':
+            case 'RS':
+            case 'SP':
+            case 'PR':
                 win++;
-                console.log("You win! "+playerSelection+" beats "+computerSelection);
+                dashboard.innerText = `${playerSelection} vs ${computerSelection},
+                You win!!!
+                score win:${win} lose:${lose}`;
                 break;
-            case 'rp':
-            case 'sr':
-            case 'ps':
+            case 'RP':
+            case 'SR':
+            case 'PS':
                 lose++;
-                console.log("You lose! "+computerSelection+" beats "+playerSelection);
+                dashboard.innerText = `${playerSelection} vs ${computerSelection},
+                You lose!!!
+                score win:${win} lose:${lose}`;
                 break;
             default:
-                playerSelection = prompt("You draw, Please select rock ,paper or scrissors again.");
-                playRound(playerSelection.toLowerCase(), computerplay());
+                dashboard.innerText = `${playerSelection} vs ${computerSelection},
+                Draw try again.
+                score win:${win} lose:${lose}`;
         }
-    }else{
-        playerSelection = prompt("Input wrong, Please select rock ,paper or scrissors again.");
-        return playRound(playerSelection.toLowerCase(), computerplay());
-    }
-}
-
-function game(){
-    win = 0;
-    lose = 0;
-    for(i=0; i<5; i++){
-        playRound(playerPlay(), computerplay());
-    }
-    if(win > lose){
-        console.log("Score Player : "+win+" | computer : "+lose+" You win!");
-    }else{
-        console.log("Score Player : "+win+" | computer : "+lose+" You lose!");
+        findWinner();
     }
 }
