@@ -1,1 +1,1 @@
-The Odin Project webdevelopment course : Rock Paper Scrissors Project.
+The Odin Project webdevelopment course : Rock Paper Scissors Project.
